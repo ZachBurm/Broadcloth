@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{953F4C13-E133-4067-B09C-2EB708EB9414}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\BISolutionWorksheets2.xlsx = ..\..\BISolutionWorksheets2.xlsx
+		BISolutionWorksheets.xlsx = BISolutionWorksheets.xlsx
 	EndProjectSection
 EndProject
 Global
