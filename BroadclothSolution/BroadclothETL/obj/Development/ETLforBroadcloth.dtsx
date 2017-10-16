@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/16/2017 12:18:37 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CAM"
+  DTS:CreatorName="CAM\Cameron"
+  DTS:DTSID="{F5A3B2E2-C9F3-4AED-9846-C7EBEBCE8126}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0500.272"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ETLforBroadcloth"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{8DA2EA3D-24F1-4CA7-A0D2-AFAFE135784D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Broadcloth]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A8EE4672-4750-4E43-BBB0-BBF144E0CCA9}"
+      DTS:ObjectName="LocalHost.Broadcloth">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Broadcloth;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load DIM Tables"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{0D41D847-5245-48D2-8736-4DEF4DF16166}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load DIM Tables">
+      <DTS:Variables />
+      <DTS:Executables />
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Fact Table"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{AA89E6E1-BAC8-41B3-81EF-643E8142D464}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Fact Table">
+      <DTS:Variables />
+      <DTS:Executables />
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Prepare ETL"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{59D483AC-FB2B-4889-AC1E-AE988CB09EED}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Prepare ETL">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Prepare ETL\Build DM"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{312CAF82-0E36-4CD6-9EB0-71C26A5FFC91}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Build DM"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server vNext CTP2.0; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A8EE4672-4750-4E43-BBB0-BBF144E0CCA9}"
+              SQLTask:SqlStatementSource="-- Updated on October 15, 2017&#xA;-- Broadcloth database developed and written by Amy Phillips&#xA;-- BroadclothDW developed and written by Zach B, Cam H, Paul S, &amp; Julia T&#xA;-----------------------------------------------------------&#xA;&#xA;IF NOT EXISTS(SELECT * FROM sys.databases&#xA;&#x9;WHERE name = N'BroadclothDW')&#xA;&#x9;CREATE DATABASE BroadclothDW&#xA;GO&#xA;USE BroadclothDW&#xA;&#xA;-- =======================================&#xA;-- Delete existing tables&#xA;-- =======================================&#xA;&#xA;--&#xA;-- Table FactCompanyProduction&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'FactCompanyProduction'&#xA;       )&#xA;&#x9;DROP TABLE FactCompanyProduction;&#xA;--&#xA;-- Table DimShipment&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimShipment'&#xA;       )&#xA;&#x9;DROP TABLE DimShipment;&#xA;--&#xA;-- Table DimCompliance&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimCompliance'&#xA;       )&#xA;&#x9;DROP TABLE DimCompliance;&#xA;--&#xA;-- Table DimCustomer&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimCustomer'&#xA;       )&#xA;&#x9;DROP TABLE DimCustomer;&#xA;--&#xA;-- Table DimDate&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimDate'&#xA;       )&#xA;&#x9;DROP TABLE DimDate;&#xA;--&#xA;-- Table DimProductionBatch&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimProductionBatch'&#xA;       )&#xA;&#x9;DROP TABLE DimProductionBatch;&#xA;&#xA;&#xA;-- ==========================&#xA;-- Create tables&#xA;-- ===========================&#xA;&#xA;--&#xA;-- Table 1 DimProductionBatch&#xA;--&#xA;CREATE TABLE DimProductionBatch&#xA;&#x9;(Production_SK INT CONSTRAINT pk_Production_SK PRIMARY KEY,&#xA;&#x9;ItemID INT NOT NULL,&#xA;&#x9;FactoryID INT NOT NULL,&#xA;&#x9;Start_date_time NVARCHAR(40) NOT NULL,&#xA;&#x9;Est_end_time NVARCHAR(120) NOT NULL,&#xA;&#x9;Actual_end_time NVARCHAR(20) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 2 DimShipment&#xA;--&#xA;CREATE TABLE DimShipment&#xA;&#x9;(Shipment_SK INT CONSTRAINT pk_Shipment_SK PRIMARY KEY,&#xA;&#x9;Shipment_AK INT NOT NULL,&#xA;&#x9;Ship_method NVARCHAR(40) NOT NULL,&#xA;&#x9;Ship_postal INT NOT NULL,&#xA;&#x9;Ship_state NVARCHAR(40) NOT NULL,&#xA;&#x9;Ship_nation NVARCHAR(60) NOT NULL,&#xA;&#x9;Ship_currency NVARCHAR(40) NOT NULL,&#xA;&#x9;Quantity_shipped INT NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 3 DimCompliance&#xA;--&#xA;CREATE TABLE DimCompliance&#xA;&#x9;(Compliance_SK INT CONSTRAINT pk_Compliance_SK PRIMARY KEY,&#xA;&#x9;Compliance_AK INT NOT NULL,&#xA;&#x9;Date_observed NVARCHAR(40) NOT NULL,&#xA;&#x9;Overall_rating NVARCHAR(120) NOT NULL,&#xA;&#x9;Condition_catagory NVARCHAR(20) NOT NULL,&#xA;&#x9;Worker_comments NVARCHAR(120) NOT NULL,&#xA;&#x9;Worker_health NVARCHAR (16) NOT NULL,&#xA;&#x9;Worker_age INT NOT NULL,&#xA;&#x9;Worker_gender NVARCHAR(16) NOT NULL,&#xA;&#x9;Condition_comments NVARCHAR(120) NOT NULL,&#xA;&#x9;Age_documents INT NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 4 DimCustomer&#xA;--&#xA;CREATE TABLE DimCustomer&#xA;&#x9;(Customer_SK INT CONSTRAINT pk_Customer_SK PRIMARY KEY,&#xA;&#x9;Customer_AK INT NOT NULL,&#xA;&#x9;Order_date NVARCHAR(40) NOT NULL,&#xA;&#x9;Bill_postal_code NVARCHAR(120) NOT NULL,&#xA;&#x9;Bill_state NVARCHAR(2) NOT NULL,&#xA;&#x9;Bill_month NVARCHAR(20) NOT NULL,&#xA;&#x9;Order_currency NVARCHAR(20) NOT NULL,&#xA;&#x9;Base_currency NVARCHAR(20) NOT NULL,&#xA;&#x9;Price_adjustment NUMERIC(38,4) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 5 DimDate&#xA;--&#xA;CREATE TABLE DimDate&#xA;&#x9;(Date_SK INT CONSTRAINT pk_Date_SK PRIMARY KEY,&#xA;&#x9;Year NVARCHAR(40) NOT NULL,&#xA;&#x9;Quarter NVARCHAR(120) NOT NULL,&#xA;&#x9;Month NVARCHAR(20) NOT NULL,&#xA;&#x9;Day_of_week NVARCHAR(20) NOT NULL,&#xA;&#x9;Day_of_month NVARCHAR(2) NOT NULL,&#xA;&#x9;Day_of_year NVARCHAR(3) NOT NULL,&#xA;&#x9;Season NVARCHAR(20) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 6 FactCompanyProduction&#xA;--&#xA;CREATE TABLE FactCompanyProduction&#xA;&#x9;(Date_SK INT CONSTRAINT fk_Date_SK FOREIGN KEY REFERENCES DimDate(Date_SK),&#xA;&#x9;Customer_SK INT CONSTRAINT fk_Customer_SK FOREIGN KEY REFERENCES DimCustomer(Customer_SK), &#xA;&#x9;Shipment_SK INT CONSTRAINT fk_Shipment_SK FOREIGN KEY REFERENCES DimShipment(Shipment_SK),&#xA;&#x9;Compliance_SK INT CONSTRAINT fk_Compliance_SK FOREIGN KEY REFERENCES DimCompliance(Compliance_SK),&#xA;&#x9;Production_SK INT CONSTRAINT fk_Production_SK FOREIGN KEY REFERENCES DimProductionBatch(Production_SK),&#xA;&#x9;Quantity_Produced INT NOT NULL,&#xA;&#x9;Quality_Rating NUMERIC(18,0) NOT NULL,&#xA;&#x9;Production_Cost NUMERIC(38,4) NOT NULL,&#xA;&#x9;Production_Duration INT NOT NULL,&#xA;&#x9;CONSTRAINT [pk_CompanyProduction] PRIMARY KEY&#xA;   &#x9;(Date_SK,&#xA;   &#x9;Customer_SK,&#xA;&#x9;Shipment_SK,&#xA;&#x9;Compliance_SK,&#xA;&#x9;Production_SK)&#xA;&#x9;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="204.8,55.2"
+          Size="204.8,98.4"
+          Id="Package\Load DIM Tables"
+          TopLeft="110.285716163869,252.658827072856" />
+        <NodeLayout
+          Size="120,41.6"
+          Id="Package\Prepare ETL\Build DM"
+          TopLeft="35.7714309653458,26.1647071693183" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="245.6,122.4"
+          Size="245.6,165.6"
+          Id="Package\Prepare ETL"
+          TopLeft="50.8571437232348,21.4117650061743" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="204.8,55.2"
+          Size="204.8,98.4"
+          Id="Package\Load Fact Table"
+          TopLeft="375.428577822082,24.4705885784849" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

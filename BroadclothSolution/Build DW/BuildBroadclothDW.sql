@@ -160,8 +160,8 @@ CREATE TABLE FactCompanyProduction
 	Production_Duration INT NOT NULL,
 	CONSTRAINT [pk_CompanyProduction] PRIMARY KEY
    	(Date_SK,
-    	Customer_SK,
+    Customer_SK,
 	Shipment_SK,
 	Compliance_SK,
-	Production_SK
+	Production_SK)
 	);
