@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Documents", "Solut
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build DW", "Build DW", "{6BCF9155-BB23-4389-B70C-59A2B2A97304}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\BuildBroadclothDW.sql = ..\..\BuildBroadclothDW.sql
+		Build DW\BuildBroadclothDW.sql = Build DW\BuildBroadclothDW.sql
 	EndProjectSection
 EndProject
 Global
