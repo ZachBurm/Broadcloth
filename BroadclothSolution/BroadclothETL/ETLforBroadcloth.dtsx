@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforBroadcloth"
   DTS:PackageType="5"
-  DTS:VersionBuild="13"
-  DTS:VersionGUID="{147D34CC-1BAB-4717-BC25-C07FEAA627CB}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{863C5582-2F42-4344-BEC9-C044E3922398}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -700,13 +700,6 @@ FROM     Compliance INNER JOIN
                           externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_postal_code]"
                           lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[BillPostalCode]" />
                         <inputColumn
-                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BillNation]"
-                          cachedDataType="wstr"
-                          cachedLength="50"
-                          cachedName="BillNation"
-                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_nation]"
-                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[BillNation]" />
-                        <inputColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[OrderCurrency]"
                           cachedDataType="wstr"
                           cachedLength="5"
@@ -741,23 +734,19 @@ FROM     Compliance INNER JOIN
                           name="Customer_AK" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_date]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="40"
                           name="Order_date" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_postal_code]"
                           dataType="wstr"
-                          length="12"
+                          length="120"
                           name="Bill_postal_code" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_state]"
                           dataType="wstr"
-                          length="20"
+                          length="2"
                           name="Bill_state" />
-                        <externalMetadataColumn
-                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_nation]"
-                          dataType="wstr"
-                          length="50"
-                          name="Bill_nation" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_currency]"
                           dataType="wstr"
@@ -774,6 +763,11 @@ FROM     Compliance INNER JOIN
                           name="Price_adjustment"
                           precision="38"
                           scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_month]"
+                          dataType="wstr"
+                          length="20"
+                          name="Bill_month" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -1069,21 +1063,6 @@ FROM     Customer INNER JOIN
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Load Dimension Tables\Load DimDate"
-          DTS:CreationName="Microsoft.ExecuteSQLTask"
-          DTS:Description="Execute SQL Task"
-          DTS:DTSID="{6AD0D23F-441F-4761-AD5B-4A766A415E52}"
-          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-          DTS:LocaleID="-1"
-          DTS:ObjectName="Load DimDate"
-          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server vNext CTP2.0; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
-          <DTS:Variables />
-          <DTS:ObjectData>
-            <SQLTask:SqlTaskData xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-          </DTS:ObjectData>
-        </DTS:Executable>
-        <DTS:Executable
           DTS:refId="Package\Load Dimension Tables\Load DimProductionBatch"
           DTS:CreationName="Microsoft.Pipeline"
           DTS:Description="Data Flow Task"
@@ -1139,7 +1118,7 @@ FROM     Customer INNER JOIN
                     <property
                       dataType="System.Boolean"
                       description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
-                      name="FastLoadKeepIdentity">false</property>
+                      name="FastLoadKeepIdentity">true</property>
                     <property
                       dataType="System.Boolean"
                       description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
@@ -1216,20 +1195,19 @@ FROM     Customer INNER JOIN
                           name="FactoryID" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Start_date_time]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="40"
                           name="Start_date_time" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Est_end_time]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="120"
                           name="Est_end_time" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Actual_end_time]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="20"
                           name="Actual_end_time" />
-                        <externalMetadataColumn
-                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Production_AK]"
-                          dataType="i4"
-                          name="Production_AK" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -1892,6 +1870,32 @@ FROM     Shipment INNER JOIN
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Dimension Tables.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{2894C5EA-63C3-416D-88CB-22998594D668}"
+          DTS:From="Package\Load Dimension Tables\Load DimProductionBatch"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load Dimension Tables\Load DimShipment" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Dimension Tables.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{3A82CD3F-DD55-4CB9-BB3D-C47FD098F935}"
+          DTS:From="Package\Load Dimension Tables\Load DimShipment"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Load Dimension Tables\Load DimCompliance" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Dimension Tables.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{05AF4055-06C4-4551-9970-0922129FB2D3}"
+          DTS:From="Package\Load Dimension Tables\Load DimCompliance"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Load Dimension Tables\Load DimCustomer" />
+      </DTS:PrecedenceConstraints>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Load Fact Table"
@@ -1959,15 +1963,11 @@ FROM     Shipment INNER JOIN
         <NodeLayout
           Size="176.8,41.6"
           Id="Package\Load Dimension Tables\Load DimCompliance"
-          TopLeft="37.6489814046521,165.236979359256" />
+          TopLeft="37.6489814046521,173.189920647264" />
         <NodeLayout
           Size="168,41.6"
           Id="Package\Load Dimension Tables\Load DimCustomer"
-          TopLeft="39.4448998025833,236.040342977432" />
-        <NodeLayout
-          Size="144.8,41.6"
-          Id="Package\Load Dimension Tables\Load DimDate"
-          TopLeft="46.4653080854055,305.882360523241" />
+          TopLeft="39.4448998025833,243.993284265439" />
         <NodeLayout
           Size="199.2,41.6"
           Id="Package\Load Dimension Tables\Load DimProductionBatch"
@@ -1976,13 +1976,85 @@ FROM     Shipment INNER JOIN
           Size="167.2,41.6"
           Id="Package\Load Dimension Tables\Load DimShipment"
           TopLeft="37.7306140591035,102.352946288787" />
+        <EdgeLayout
+          Id="Package\Load Dimension Tables.PrecedenceConstraints[Constraint]"
+          TopLeft="124.310205810341,73.0756343703901">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.2773119183969"
+              Start="0,0"
+              End="0,21.7773119183969">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.7773119183969" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,6.11180049044845,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Dimension Tables.PrecedenceConstraints[Constraint 1]"
+          TopLeft="123.689797731878,143.952946288787">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.2369743584767"
+              Start="0,0"
+              End="0,21.7369743584767">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.7369743584767" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,6.09163171048833,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Dimension Tables.PrecedenceConstraints[Constraint 2]"
+          TopLeft="124.746940603618,214.789920647264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.2033636181758"
+              Start="0,0"
+              End="0,21.7033636181758">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.7033636181758" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,6.07482634033791,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="256.8,366.4"
-          Size="256.8,409.6"
+          PanelSize="256.8,415.2"
+          Size="256.8,458.4"
           Id="Package\Load Dimension Tables"
-          TopLeft="70.8571440638328,276.800004375682" />
+          TopLeft="80.5714299435519,244.988239223652" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
@@ -2003,25 +2075,25 @@ FROM     Shipment INNER JOIN
           TopLeft="82.6938789592887,21.4117650061743" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="202.375511511561,187.011765006174">
+          TopLeft="207.23265445142,187.011765006174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,89.7882393695078"
+              EndConnector="0,57.9764742174774"
               Start="0,0"
-              End="0,82.2882393695078">
+              End="0,50.4764742174774">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,82.2882393695078" />
+                    End="0,50.4764742174774" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-17.9932421875,36.3672642160039,35.986484375,9.5537109375"
+              BoundingBox="-17.9932421875,20.4613816399887,35.986484375,9.5537109375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2034,13 +2106,13 @@ FROM     Shipment INNER JOIN
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="170.4,41.6"
-          Id="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination"
-          TopLeft="162.285717049424,157.835296331227" />
-        <NodeLayout
           Size="149.6,41.6"
           Id="Package\Load Dimension Tables\Load DimCompliance\OLE DB Source"
           TopLeft="169.142860023343,70.352942163144" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination"
+          TopLeft="162.285717049424,157.835296331227" />
         <EdgeLayout
           Id="Package\Load Dimension Tables\Load DimCompliance.Paths[OLE DB Source Output]"
           TopLeft="245.714288536383,111.952942163144">
@@ -2162,7 +2234,7 @@ FROM     Shipment INNER JOIN
     design-time-name="Package\Load Dimension Tables\Load DimProductionBatch">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="149.6,41.6"
           Id="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source"
@@ -2202,7 +2274,9 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0.4,34.6,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
