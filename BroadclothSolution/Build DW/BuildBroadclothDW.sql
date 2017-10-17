@@ -77,8 +77,7 @@ IF EXISTS(
 -- Table 1 DimProductionBatch
 --
 CREATE TABLE DimProductionBatch
-	(Production_SK INT CONSTRAINT pk_Production_SK PRIMARY KEY,
-	Production_AK INT NOT NULL,
+	(Production_SK INT IDENTITY (1,1) CONSTRAINT pk_Production_SK PRIMARY KEY,
 	ItemID INT NOT NULL,
 	FactoryID INT NOT NULL,
 	Start_date_time DATETIME NOT NULL,
@@ -90,7 +89,7 @@ CREATE TABLE DimProductionBatch
 -- Table 2 DimShipment
 --
 CREATE TABLE DimShipment
-	(Shipment_SK INT CONSTRAINT pk_Shipment_SK PRIMARY KEY,
+	(Shipment_SK INT IDENTITY (1,1) CONSTRAINT pk_Shipment_SK PRIMARY KEY,
 	Shipment_AK INT NOT NULL,
 	Ship_method NVARCHAR(50) NOT NULL,
 	Ship_postal NVARCHAR(12) NOT NULL,
@@ -104,7 +103,7 @@ CREATE TABLE DimShipment
 -- Table 3 DimCompliance
 --
 CREATE TABLE DimCompliance
-	(Compliance_SK INT CONSTRAINT pk_Compliance_SK PRIMARY KEY,
+	(Compliance_SK INT IDENTITY (1,1) CONSTRAINT pk_Compliance_SK PRIMARY KEY,
 	Compliance_AK INT NOT NULL,
 	Date_observed DATETIME NOT NULL,
 	Overall_rating NUMERIC(18,0) NOT NULL,
@@ -121,7 +120,7 @@ CREATE TABLE DimCompliance
 -- Table 4 DimCustomer
 --
 CREATE TABLE DimCustomer
-	(Customer_SK INT CONSTRAINT pk_Customer_SK PRIMARY KEY,
+	(Customer_SK INT IDENTITY (1,1) CONSTRAINT pk_Customer_SK PRIMARY KEY,
 	Customer_AK INT NOT NULL,
 	Order_date DATETIME NOT NULL,
 	Bill_postal_code NVARCHAR(12) NOT NULL,
@@ -136,7 +135,7 @@ CREATE TABLE DimCustomer
 -- Table 5 DimDate
 --
 CREATE TABLE DimDate
-	(Date_SK INT CONSTRAINT pk_Date_SK PRIMARY KEY,
+	(Date_SK INT IDENTITY (1,1) CONSTRAINT pk_Date_SK PRIMARY KEY,
 	Year NVARCHAR(40) NOT NULL,
 	Quarter NVARCHAR(120) NOT NULL,
 	Month NVARCHAR(20) NOT NULL,

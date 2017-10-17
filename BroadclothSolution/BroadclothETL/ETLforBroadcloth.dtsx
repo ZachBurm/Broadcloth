@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforBroadcloth"
   DTS:PackageType="5"
-  DTS:VersionBuild="11"
-  DTS:VersionGUID="{2460C11D-A1F2-4BE6-98F7-A23B5A9AE517}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{147D34CC-1BAB-4717-BC25-C07FEAA627CB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -155,13 +155,6 @@
                           externalMetadataColumnId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Overall_rating]"
                           lineageId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Source.Outputs[OLE DB Source Output].Columns[OverallRating]" />
                         <inputColumn
-                          refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ConditionCategory]"
-                          cachedDataType="wstr"
-                          cachedLength="50"
-                          cachedName="ConditionCategory"
-                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Condition_catagory]"
-                          lineageId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Source.Outputs[OLE DB Source Output].Columns[ConditionCategory]" />
-                        <inputColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ConditionComments]"
                           cachedDataType="wstr"
                           cachedLength="1023"
@@ -216,47 +209,48 @@
                           name="Compliance_AK" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_observed]"
-                          dataType="wstr"
-                          length="40"
+                          dataType="dbTimeStamp"
                           name="Date_observed" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Overall_rating]"
-                          dataType="wstr"
-                          length="120"
-                          name="Overall_rating" />
-                        <externalMetadataColumn
-                          refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Condition_catagory]"
-                          dataType="wstr"
-                          length="20"
-                          name="Condition_catagory" />
+                          dataType="numeric"
+                          name="Overall_rating"
+                          precision="18" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Worker_comments]"
                           dataType="wstr"
-                          length="120"
+                          length="1023"
                           name="Worker_comments" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Worker_health]"
                           dataType="wstr"
-                          length="16"
+                          length="1023"
                           name="Worker_health" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Worker_age]"
-                          dataType="i4"
-                          name="Worker_age" />
+                          dataType="numeric"
+                          name="Worker_age"
+                          precision="18" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Worker_gender]"
                           dataType="wstr"
-                          length="16"
+                          length="7"
                           name="Worker_gender" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Condition_comments]"
                           dataType="wstr"
-                          length="120"
+                          length="1023"
                           name="Condition_comments" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Age_documents]"
-                          dataType="i4"
+                          dataType="wstr"
+                          length="150"
                           name="Age_documents" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Condition_category]"
+                          dataType="wstr"
+                          length="50"
+                          name="Condition_category" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -747,23 +741,22 @@ FROM     Compliance INNER JOIN
                           name="Customer_AK" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_date]"
-                          dataType="wstr"
-                          length="40"
+                          dataType="dbTimeStamp"
                           name="Order_date" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_postal_code]"
                           dataType="wstr"
-                          length="120"
+                          length="12"
                           name="Bill_postal_code" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_state]"
                           dataType="wstr"
-                          length="2"
+                          length="20"
                           name="Bill_state" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_nation]"
                           dataType="wstr"
-                          length="20"
+                          length="50"
                           name="Bill_nation" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_currency]"
@@ -1175,6 +1168,38 @@ FROM     Customer INNER JOIN
                       errorRowDisposition="FailComponent"
                       hasSideEffects="true"
                       name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FactoryID]"
+                          cachedDataType="i4"
+                          cachedName="FactoryID"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FactoryID]"
+                          lineageId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source.Outputs[OLE DB Source Output].Columns[FactoryID]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ItemID]"
+                          cachedDataType="i4"
+                          cachedName="ItemID"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemID]"
+                          lineageId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source.Outputs[OLE DB Source Output].Columns[ItemID]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[StartDateTime]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="StartDateTime"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Start_date_time]"
+                          lineageId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source.Outputs[OLE DB Source Output].Columns[StartDateTime]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EstEndTime]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="EstEndTime"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Est_end_time]"
+                          lineageId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source.Outputs[OLE DB Source Output].Columns[EstEndTime]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ActualEndTime]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="ActualEndTime"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Actual_end_time]"
+                          lineageId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source.Outputs[OLE DB Source Output].Columns[ActualEndTime]" />
+                      </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
                         <externalMetadataColumn
@@ -1191,19 +1216,20 @@ FROM     Customer INNER JOIN
                           name="FactoryID" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Start_date_time]"
-                          dataType="wstr"
-                          length="40"
+                          dataType="dbTimeStamp"
                           name="Start_date_time" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Est_end_time]"
-                          dataType="wstr"
-                          length="120"
+                          dataType="dbTimeStamp"
                           name="Est_end_time" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Actual_end_time]"
-                          dataType="wstr"
-                          length="20"
+                          dataType="dbTimeStamp"
                           name="Actual_end_time" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Production_AK]"
+                          dataType="i4"
+                          name="Production_AK" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -1569,26 +1595,27 @@ FROM     ProductionBatch</property>
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Ship_method]"
                           dataType="wstr"
-                          length="40"
+                          length="50"
                           name="Ship_method" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Ship_postal]"
-                          dataType="i4"
+                          dataType="wstr"
+                          length="12"
                           name="Ship_postal" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Ship_state]"
                           dataType="wstr"
-                          length="40"
+                          length="20"
                           name="Ship_state" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Ship_nation]"
                           dataType="wstr"
-                          length="60"
+                          length="50"
                           name="Ship_nation" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Ship_currency]"
                           dataType="wstr"
-                          length="40"
+                          length="5"
                           name="Ship_currency" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quantity_shipped]"
@@ -2066,13 +2093,13 @@ FROM     Shipment INNER JOIN
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source"
-          TopLeft="185.371426537572,42.3999985414393" />
-        <NodeLayout
           Size="170.4,41.6"
           Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination"
           TopLeft="188.000003201621,119.905884034576" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source"
+          TopLeft="185.371426537572,42.3999985414393" />
         <EdgeLayout
           Id="Package\Load Dimension Tables\Load DimCustomer.Paths[OLE DB Source Output]"
           TopLeft="260.171426537572,83.9999985414393">
@@ -2110,6 +2137,19 @@ FROM     Shipment INNER JOIN
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source">
     <Properties>
@@ -2245,19 +2285,6 @@ FROM     Shipment INNER JOIN
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
