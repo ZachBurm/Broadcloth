@@ -125,7 +125,7 @@ CREATE TABLE DimCustomer
 	Order_date NVARCHAR(40) NOT NULL,
 	Bill_postal_code NVARCHAR(120) NOT NULL,
 	Bill_state NVARCHAR(2) NOT NULL,
-	Bill_month NVARCHAR(20) NOT NULL,
+	Bill_nation NVARCHAR(20) NOT NULL,
 	Order_currency NVARCHAR(20) NOT NULL,
 	Base_currency NVARCHAR(20) NOT NULL,
 	Price_adjustment NUMERIC(38,4) NOT NULL
