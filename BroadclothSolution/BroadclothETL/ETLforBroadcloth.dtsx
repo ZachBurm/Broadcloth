@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforBroadcloth"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{7B199ABF-E4C7-4589-8A68-8BB211BEA4A8}">
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{2460C11D-A1F2-4BE6-98F7-A23B5A9AE517}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -608,6 +608,208 @@ FROM     Compliance INNER JOIN
               version="1">
               <components>
                 <component
+                  refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DimCustomer]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[LocalHost.BroadclothDW]"
+                      connectionManagerRefId="Package.ConnectionManagers[LocalHost.BroadclothDW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CustomerID]"
+                          cachedDataType="i4"
+                          cachedName="CustomerID"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Customer_AK]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[OrderDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="OrderDate"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_date]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[OrderDate]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BillState]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="BillState"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_state]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[BillState]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BillPostalCode]"
+                          cachedDataType="wstr"
+                          cachedLength="12"
+                          cachedName="BillPostalCode"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_postal_code]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[BillPostalCode]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BillNation]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="BillNation"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_nation]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[BillNation]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[OrderCurrency]"
+                          cachedDataType="wstr"
+                          cachedLength="5"
+                          cachedName="OrderCurrency"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_currency]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[OrderCurrency]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PriceAdjustment]"
+                          cachedDataType="numeric"
+                          cachedName="PriceAdjustment"
+                          cachedPrecision="38"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Price_adjustment]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[PriceAdjustment]" />
+                        <inputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BaseCurrency]"
+                          cachedDataType="wstr"
+                          cachedLength="20"
+                          cachedName="BaseCurrency"
+                          externalMetadataColumnId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Base_currency]"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output].Columns[BaseCurrency]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Customer_SK]"
+                          dataType="i4"
+                          name="Customer_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Customer_AK]"
+                          dataType="i4"
+                          name="Customer_AK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_date]"
+                          dataType="wstr"
+                          length="40"
+                          name="Order_date" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_postal_code]"
+                          dataType="wstr"
+                          length="120"
+                          name="Bill_postal_code" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_state]"
+                          dataType="wstr"
+                          length="2"
+                          name="Bill_state" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bill_nation]"
+                          dataType="wstr"
+                          length="20"
+                          name="Bill_nation" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Order_currency]"
+                          dataType="wstr"
+                          length="20"
+                          name="Order_currency" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Base_currency]"
+                          dataType="wstr"
+                          length="20"
+                          name="Base_currency" />
+                        <externalMetadataColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Price_adjustment]"
+                          dataType="numeric"
+                          name="Price_adjustment"
+                          precision="38"
+                          scale="4" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
                   refId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source"
                   componentClassID="Microsoft.OLEDBSource"
                   contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
@@ -863,6 +1065,13 @@ FROM     Customer INNER JOIN
                   </outputs>
                 </component>
               </components>
+              <paths>
+                <path
+                  refId="Package\Load Dimension Tables\Load DimCustomer.Paths[OLE DB Source Output]"
+                  endId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
             </pipeline>
           </DTS:ObjectData>
         </DTS:Executable>
@@ -1723,30 +1932,30 @@ FROM     Shipment INNER JOIN
         <NodeLayout
           Size="176.8,41.6"
           Id="Package\Load Dimension Tables\Load DimCompliance"
-          TopLeft="36.5061242423322,156.672273356786" />
+          TopLeft="37.6489814046521,165.236979359256" />
         <NodeLayout
           Size="168,41.6"
           Id="Package\Load Dimension Tables\Load DimCustomer"
-          TopLeft="40.5877569649033,224.416813402652" />
+          TopLeft="39.4448998025833,236.040342977432" />
         <NodeLayout
           Size="144.8,41.6"
           Id="Package\Load Dimension Tables\Load DimDate"
-          TopLeft="43.0367365984458,288.752948518302" />
+          TopLeft="46.4653080854055,305.882360523241" />
         <NodeLayout
           Size="199.2,41.6"
           Id="Package\Load Dimension Tables\Load DimProductionBatch"
-          TopLeft="35.689797697818,19.2403400811476" />
+          TopLeft="27.6897975615788,31.4756343703901" />
         <NodeLayout
           Size="167.2,41.6"
           Id="Package\Load Dimension Tables\Load DimShipment"
-          TopLeft="34.8734711533038,88.2823578561585" />
+          TopLeft="37.7306140591035,102.352946288787" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="256.8,385.6"
-          Size="256.8,428.8"
+          PanelSize="256.8,366.4"
+          Size="256.8,409.6"
           Id="Package\Load Dimension Tables"
-          TopLeft="69.142858320353,246.541179928235" />
+          TopLeft="70.8571440638328,276.800004375682" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
@@ -1767,25 +1976,25 @@ FROM     Shipment INNER JOIN
           TopLeft="82.6938789592887,21.4117650061743" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="201.518368639821,187.011765006174">
+          TopLeft="202.375511511561,187.011765006174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,59.5294149220608"
+              EndConnector="0,89.7882393695078"
               Start="0,0"
-              End="0,52.0294149220608">
+              End="0,82.2882393695078">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.0294149220608" />
+                    End="0,82.2882393695078" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-17.9932421875,21.2378519922804,35.986484375,9.5537109375"
+              BoundingBox="-17.9932421875,36.3672642160039,35.986484375,9.5537109375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1855,11 +2064,49 @@ FROM     Shipment INNER JOIN
     design-time-name="Package\Load Dimension Tables\Load DimCustomer">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="149.6,41.6"
           Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source"
-          TopLeft="304.8,146.4" />
+          TopLeft="185.371426537572,42.3999985414393" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination"
+          TopLeft="188.000003201621,119.905884034576" />
+        <EdgeLayout
+          Id="Package\Load Dimension Tables\Load DimCustomer.Paths[OLE DB Source Output]"
+          TopLeft="260.171426537572,83.9999985414393">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="13.0285766640488,35.9058854931367"
+              Start="0,0"
+              End="13.0285766640488,28.4058854931367">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.9529427465683" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.9529427465683"
+                    Point2="0,17.9529427465683"
+                    Point3="4,17.9529427465683" />
+                  <mssgle:LineSegment
+                    End="9.02857666404884,17.9529427465683" />
+                  <mssgle:CubicBezierSegment
+                    Point1="9.02857666404884,17.9529427465683"
+                    Point2="13.0285766640488,17.9529427465683"
+                    Point3="13.0285766640488,21.9529427465683" />
+                  <mssgle:LineSegment
+                    End="13.0285766640488,28.4058854931367" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -1998,6 +2245,19 @@ FROM     Shipment INNER JOIN
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

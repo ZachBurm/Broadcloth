@@ -78,11 +78,12 @@ IF EXISTS(
 --
 CREATE TABLE DimProductionBatch
 	(Production_SK INT CONSTRAINT pk_Production_SK PRIMARY KEY,
+	Production_AK INT NOT NULL,
 	ItemID INT NOT NULL,
 	FactoryID INT NOT NULL,
-	Start_date_time NVARCHAR(40) NOT NULL,
-	Est_end_time NVARCHAR(120) NOT NULL,
-	Actual_end_time NVARCHAR(20) NOT NULL
+	Start_date_time DATETIME NOT NULL,
+	Est_end_time DATETIME NOT NULL,
+	Actual_end_time DATETIME NOT NULL
 	);
 
 --
@@ -91,11 +92,11 @@ CREATE TABLE DimProductionBatch
 CREATE TABLE DimShipment
 	(Shipment_SK INT CONSTRAINT pk_Shipment_SK PRIMARY KEY,
 	Shipment_AK INT NOT NULL,
-	Ship_method NVARCHAR(40) NOT NULL,
-	Ship_postal INT NOT NULL,
-	Ship_state NVARCHAR(40) NOT NULL,
-	Ship_nation NVARCHAR(60) NOT NULL,
-	Ship_currency NVARCHAR(40) NOT NULL,
+	Ship_method NVARCHAR(50) NOT NULL,
+	Ship_postal NVARCHAR(12) NOT NULL,
+	Ship_state NVARCHAR(20) NOT NULL,
+	Ship_nation NVARCHAR(50) NOT NULL,
+	Ship_currency NVARCHAR(5) NOT NULL,
 	Quantity_shipped INT NOT NULL
 	);
 
@@ -105,15 +106,15 @@ CREATE TABLE DimShipment
 CREATE TABLE DimCompliance
 	(Compliance_SK INT CONSTRAINT pk_Compliance_SK PRIMARY KEY,
 	Compliance_AK INT NOT NULL,
-	Date_observed NVARCHAR(40) NOT NULL,
-	Overall_rating NVARCHAR(120) NOT NULL,
-	Condition_catagory NVARCHAR(20) NOT NULL,
-	Worker_comments NVARCHAR(120) NOT NULL,
-	Worker_health NVARCHAR (16) NOT NULL,
-	Worker_age INT NOT NULL,
-	Worker_gender NVARCHAR(16) NOT NULL,
-	Condition_comments NVARCHAR(120) NOT NULL,
-	Age_documents INT NOT NULL
+	Date_observed DATETIME NOT NULL,
+	Overall_rating NUMERIC(18,0) NOT NULL,
+	Condition_category NVARCHAR(50) NOT NULL,
+	Worker_comments NVARCHAR(1023) NOT NULL,
+	Worker_health NVARCHAR (1023) NOT NULL,
+	Worker_age NUMERIC(18,0) NOT NULL,
+	Worker_gender NVARCHAR(7) NOT NULL,
+	Condition_comments NVARCHAR(1023) NOT NULL,
+	Age_documents NVARCHAR(150) NOT NULL
 	);
 
 --
@@ -122,10 +123,10 @@ CREATE TABLE DimCompliance
 CREATE TABLE DimCustomer
 	(Customer_SK INT CONSTRAINT pk_Customer_SK PRIMARY KEY,
 	Customer_AK INT NOT NULL,
-	Order_date NVARCHAR(40) NOT NULL,
-	Bill_postal_code NVARCHAR(120) NOT NULL,
-	Bill_state NVARCHAR(2) NOT NULL,
-	Bill_nation NVARCHAR(20) NOT NULL,
+	Order_date DATETIME NOT NULL,
+	Bill_postal_code NVARCHAR(12) NOT NULL,
+	Bill_state NVARCHAR(20) NOT NULL,
+	Bill_nation NVARCHAR(50) NOT NULL,
 	Order_currency NVARCHAR(20) NOT NULL,
 	Base_currency NVARCHAR(20) NOT NULL,
 	Price_adjustment NUMERIC(38,4) NOT NULL
@@ -154,10 +155,10 @@ CREATE TABLE FactCompanyProduction
 	Shipment_SK INT CONSTRAINT fk_Shipment_SK FOREIGN KEY REFERENCES DimShipment(Shipment_SK),
 	Compliance_SK INT CONSTRAINT fk_Compliance_SK FOREIGN KEY REFERENCES DimCompliance(Compliance_SK),
 	Production_SK INT CONSTRAINT fk_Production_SK FOREIGN KEY REFERENCES DimProductionBatch(Production_SK),
-	Quantity_Produced INT NOT NULL,
-	Quality_Rating NUMERIC(18,0) NOT NULL,
-	Production_Cost NUMERIC(38,4) NOT NULL,
-	Production_Duration INT NOT NULL,
+	Quantity_Produced INT,
+	Quality_Rating NUMERIC(18,0),
+	Production_Cost NUMERIC(38,4),
+	Production_Duration INT,
 	CONSTRAINT [pk_CompanyProduction] PRIMARY KEY
    	(Date_SK,
     Customer_SK,
