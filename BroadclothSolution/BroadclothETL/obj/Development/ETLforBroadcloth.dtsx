@@ -7,12 +7,12 @@
   DTS:CreatorName="CAM\Cameron"
   DTS:DTSID="{F5A3B2E2-C9F3-4AED-9846-C7EBEBCE8126}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="14.0.0500.272"
+  DTS:LastModifiedProductVersion="14.0.0800.90"
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforBroadcloth"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{DEAC9A39-B016-434F-8B44-7F95C5B1E69C}">
+  DTS:VersionBuild="47"
+  DTS:VersionGUID="{B001686C-AA0F-4A06-A461-425F92CE32EB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1316,15 +1316,18 @@ FROM     Customer INNER JOIN
                           name="FactoryID" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Start_date_time]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="40"
                           name="Start_date_time" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Est_end_time]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="120"
                           name="Est_end_time" />
                         <externalMetadataColumn
                           refId="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Actual_end_time]"
-                          dataType="dbTimeStamp"
+                          dataType="wstr"
+                          length="20"
                           name="Actual_end_time" />
                       </externalMetadataColumns>
                     </input>
@@ -2037,7 +2040,513 @@ FROM     Shipment INNER JOIN
       DTS:LocaleID="-1"
       DTS:ObjectName="Load Fact Table">
       <DTS:Variables />
-      <DTS:Executables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load Fact Table\Load FactCompanyProduction"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{043F818B-BE3F-431A-AD48-50FBA1795E2C}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load FactCompanyProduction"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[FactCompanyProduction]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[LocalHost.BroadclothDW]"
+                      connectionManagerRefId="Package.ConnectionManagers[LocalHost.BroadclothDW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Compliance_SK]"
+                          cachedDataType="i4"
+                          cachedName="Compliance_SK"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Compliance_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Compliance_SK]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Customer_SK]"
+                          cachedDataType="i4"
+                          cachedName="Customer_SK"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Customer_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Customer_SK]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Shipment_SK]"
+                          cachedDataType="i4"
+                          cachedName="Shipment_SK"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Shipment_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Shipment_SK]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Production_SK]"
+                          cachedDataType="i4"
+                          cachedName="Production_SK"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Production_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_SK]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Date_SK]"
+                          cachedDataType="i4"
+                          cachedName="Date_SK"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Date_SK]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Quantity_Produced]"
+                          cachedDataType="i4"
+                          cachedName="Quantity_Produced"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quantity_Produced]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Quantity_Produced]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Quality_Rating]"
+                          cachedDataType="numeric"
+                          cachedName="Quality_Rating"
+                          cachedPrecision="18"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quality_Rating]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Quality_Rating]" />
+                        <inputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Production_Cost]"
+                          cachedDataType="numeric"
+                          cachedName="Production_Cost"
+                          cachedPrecision="38"
+                          cachedScale="4"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Production_Cost]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_Cost]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Date_SK]"
+                          dataType="i4"
+                          name="Date_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Customer_SK]"
+                          dataType="i4"
+                          name="Customer_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Shipment_SK]"
+                          dataType="i4"
+                          name="Shipment_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Compliance_SK]"
+                          dataType="i4"
+                          name="Compliance_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Production_SK]"
+                          dataType="i4"
+                          name="Production_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quantity_Produced]"
+                          dataType="i4"
+                          name="Quantity_Produced" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Quality_Rating]"
+                          dataType="numeric"
+                          name="Quality_Rating"
+                          precision="18" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Production_Cost]"
+                          dataType="numeric"
+                          name="Production_Cost"
+                          precision="38"
+                          scale="4" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT  
+	
+	DimCompliance.Compliance_SK,
+	DimCustomer.Customer_SK,
+	DimShipment.Shipment_SK,
+	DimProductionBatch.Production_SK,
+	DimDate.Date_SK,
+	Broadcloth.dbo.ProductionBatch.QuantityProduced AS Quantity_Produced,
+	Broadcloth.dbo.ProductionBatch.QualityRating AS Quality_Rating,
+	Broadcloth.dbo.ProductionBatch.ProductionCost AS Production_Cost,
+	CAST((Broadcloth.dbo.ProductionBatch.ActualEndTime - Broadcloth.dbo.ProductionBatch.StartDateTime) AS INT) AS Production_Duration
+FROM Broadcloth.dbo.Customer
+INNER JOIN Broadcloth.dbo.Shipment
+	ON Broadcloth.dbo.Customer.CustomerID = Broadcloth.dbo.Shipment.CustomerID
+INNER JOIN Broadcloth.dbo.Factory
+	ON Broadcloth.dbo.Shipment.FactoryID = Broadcloth.dbo.Factory.FactoryID
+INNER JOIN Broadcloth.dbo.Compliance
+	ON Broadcloth.dbo.Compliance.FactoryID = Broadcloth.dbo.Factory.FactoryID
+INNER JOIN Broadcloth.dbo.ProductionBatch
+	ON Broadcloth.dbo.Factory.FactoryID = Broadcloth.dbo.ProductionBatch.FactoryID
+
+
+
+INNER JOIN DimCustomer
+	ON DimCustomer.Customer_AK = Broadcloth.dbo.Customer.CustomerID
+INNER JOIN DimCompliance
+	ON DimCompliance.Compliance_AK = Broadcloth.dbo.Compliance.ComplianceID
+INNER JOIN DimDate
+	ON  DimDate.Date = Broadcloth.dbo.ProductionBatch.StartDateTime
+INNER JOIN DimShipment
+	ON  DimShipment.Shipment_AK = Broadcloth.dbo.Shipment.ShipmentID
+INNER JOIN DimProductionBatch
+	ON CONCAT(DimProductionBatch.FactoryID, DimProductionBatch.ItemID, DimProductionBatch.Start_date_time) = CONCAT(Broadcloth.dbo.ProductionBatch.FactoryID, Broadcloth.dbo.ProductionBatch.ItemID, Broadcloth.dbo.ProductionBatch.StartDateTime)</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[LocalHost.BroadclothDW]"
+                      connectionManagerRefId="Package.ConnectionManagers[LocalHost.BroadclothDW]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Compliance_SK]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Compliance_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Compliance_SK]"
+                          name="Compliance_SK"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Customer_SK]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Customer_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Customer_SK]"
+                          name="Customer_SK"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Shipment_SK]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Shipment_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Shipment_SK]"
+                          name="Shipment_SK"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_SK]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Production_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_SK]"
+                          name="Production_SK"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Date_SK]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Date_SK]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Date_SK]"
+                          name="Date_SK"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Quantity_Produced]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Quantity_Produced]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Quantity_Produced]"
+                          name="Quantity_Produced"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Quality_Rating]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Quality_Rating]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Quality_Rating]"
+                          name="Quality_Rating"
+                          precision="18"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_Cost]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Production_Cost]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_Cost]"
+                          name="Production_Cost"
+                          precision="38"
+                          scale="4"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_Duration]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Production_Duration]"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].Columns[Production_Duration]"
+                          name="Production_Duration"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Compliance_SK]"
+                          dataType="i4"
+                          name="Compliance_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Customer_SK]"
+                          dataType="i4"
+                          name="Customer_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Shipment_SK]"
+                          dataType="i4"
+                          name="Shipment_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Production_SK]"
+                          dataType="i4"
+                          name="Production_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Date_SK]"
+                          dataType="i4"
+                          name="Date_SK" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Quantity_Produced]"
+                          dataType="i4"
+                          name="Quantity_Produced" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Quality_Rating]"
+                          dataType="numeric"
+                          name="Quality_Rating"
+                          precision="18" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Production_Cost]"
+                          dataType="numeric"
+                          name="Production_Cost"
+                          precision="38"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Production_Duration]"
+                          dataType="i4"
+                          name="Production_Duration" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Compliance_SK]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Compliance_SK]"
+                          name="Compliance_SK" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Customer_SK]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Customer_SK]"
+                          name="Customer_SK" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Shipment_SK]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Shipment_SK]"
+                          name="Shipment_SK" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Production_SK]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Production_SK]"
+                          name="Production_SK" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Date_SK]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Date_SK]"
+                          name="Date_SK" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Quantity_Produced]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Quantity_Produced]"
+                          name="Quantity_Produced" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Quality_Rating]"
+                          dataType="numeric"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Quality_Rating]"
+                          name="Quality_Rating"
+                          precision="18" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Production_Cost]"
+                          dataType="numeric"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Production_Cost]"
+                          name="Production_Cost"
+                          precision="38"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Production_Duration]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Production_Duration]"
+                          name="Production_Duration" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Load Fact Table\Load FactCompanyProduction.Paths[OLE DB Source Output]"
+                  endId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Prepare ETL"
@@ -2063,7 +2572,7 @@ FROM     Shipment INNER JOIN
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{A8EE4672-4750-4E43-BBB0-BBF144E0CCA9}"
-              SQLTask:SqlStatementSource="-- Updated on October 15, 2017&#xA;-- Broadcloth database developed and written by Amy Phillips&#xA;-- BroadclothDW developed and written by Zach B, Cam H, Paul S, &amp; Julia T&#xA;-----------------------------------------------------------&#xA;&#xA;IF NOT EXISTS(SELECT * FROM sys.databases&#xA;&#x9;WHERE name = N'BroadclothDW')&#xA;&#x9;CREATE DATABASE BroadclothDW&#xA;GO&#xA;USE BroadclothDW&#xA;&#xA;-- =======================================&#xA;-- Delete existing tables&#xA;-- =======================================&#xA;&#xA;--&#xA;-- Table FactCompanyProduction&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'FactCompanyProduction'&#xA;       )&#xA;&#x9;DROP TABLE FactCompanyProduction;&#xA;--&#xA;-- Table DimShipment&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimShipment'&#xA;       )&#xA;&#x9;DROP TABLE DimShipment;&#xA;--&#xA;-- Table DimCompliance&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimCompliance'&#xA;       )&#xA;&#x9;DROP TABLE DimCompliance;&#xA;--&#xA;-- Table DimCustomer&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimCustomer'&#xA;       )&#xA;&#x9;DROP TABLE DimCustomer;&#xA;--&#xA;-- Table DimDate&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimDate'&#xA;       )&#xA;&#x9;DROP TABLE DimDate;&#xA;--&#xA;-- Table DimProductionBatch&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimProductionBatch'&#xA;       )&#xA;&#x9;DROP TABLE DimProductionBatch;&#xA;&#xA;&#xA;-- ==========================&#xA;-- Create tables&#xA;-- ===========================&#xA;&#xA;--&#xA;-- Table 1 DimProductionBatch&#xA;--&#xA;CREATE TABLE DimProductionBatch&#xA;&#x9;(Production_SK INT IDENTITY (1,1) CONSTRAINT pk_Production_SK PRIMARY KEY,&#xA;&#x9;ItemID INT NOT NULL,&#xA;&#x9;FactoryID INT NOT NULL,&#xA;&#x9;Start_date_time DATETIME NOT NULL,&#xA;&#x9;Est_end_time DATETIME NOT NULL,&#xA;&#x9;Actual_end_time DATETIME NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 2 DimShipment&#xA;--&#xA;CREATE TABLE DimShipment&#xA;&#x9;(Shipment_SK INT IDENTITY (1,1) CONSTRAINT pk_Shipment_SK PRIMARY KEY,&#xA;&#x9;Shipment_AK INT NOT NULL,&#xA;&#x9;Ship_method NVARCHAR(50) NOT NULL,&#xA;&#x9;Ship_postal NVARCHAR(12) NOT NULL,&#xA;&#x9;Ship_state NVARCHAR(20) NOT NULL,&#xA;&#x9;Ship_nation NVARCHAR(50) NOT NULL,&#xA;&#x9;Ship_currency NVARCHAR(5) NOT NULL,&#xA;&#x9;Quantity_shipped INT NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 3 DimCompliance&#xA;--&#xA;CREATE TABLE DimCompliance&#xA;&#x9;(Compliance_SK INT IDENTITY (1,1) CONSTRAINT pk_Compliance_SK PRIMARY KEY,&#xA;&#x9;Compliance_AK INT NOT NULL,&#xA;&#x9;Date_observed DATETIME NOT NULL,&#xA;&#x9;Overall_rating NUMERIC(18,0) NOT NULL,&#xA;&#x9;Condition_category NVARCHAR(50) NOT NULL,&#xA;&#x9;Worker_comments NVARCHAR(1023) NOT NULL,&#xA;&#x9;Worker_health NVARCHAR (1023) NOT NULL,&#xA;&#x9;Worker_age NUMERIC(18,0) NOT NULL,&#xA;&#x9;Worker_gender NVARCHAR(7) NOT NULL,&#xA;&#x9;Condition_comments NVARCHAR(1023) NOT NULL,&#xA;&#x9;Age_documents NVARCHAR(150) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 4 DimCustomer&#xA;--&#xA;CREATE TABLE DimCustomer&#xA;&#x9;(Customer_SK INT IDENTITY (1,1) CONSTRAINT pk_Customer_SK PRIMARY KEY,&#xA;&#x9;Customer_AK INT NOT NULL,&#xA;&#x9;Order_date DATETIME NOT NULL,&#xA;&#x9;Bill_postal_code NVARCHAR(12) NOT NULL,&#xA;&#x9;Bill_state NVARCHAR(20) NOT NULL,&#xA;&#x9;Bill_nation NVARCHAR(50) NOT NULL,&#xA;&#x9;Order_currency NVARCHAR(20) NOT NULL,&#xA;&#x9;Base_currency NVARCHAR(20) NOT NULL,&#xA;&#x9;Price_adjustment NUMERIC(38,4) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 5 DimDate&#xA;--&#xA;CREATE TABLE dbo.DimDate&#xA;&#x9;(Date_SK INT PRIMARY KEY, &#xA;&#x9;Date DATETIME,&#xA;&#x9;FullDate CHAR(10),-- Date in MM-dd-yyyy format&#xA;&#x9;DayOfMonth INT, -- Field will hold day number of Month&#xA;&#x9;DayName VARCHAR(9), -- Contains name of the day, Sunday, Monday &#xA;&#x9;DayOfWeek INT,-- First Day Sunday=1 and Saturday=7&#xA;&#x9;DayOfWeekInMonth INT, -- 1st Monday or 2nd Monday in Month&#xA;&#x9;DayOfWeekInYear INT,&#xA;&#x9;DayOfQuarter INT,&#xA;&#x9;DayOfYear INT,&#xA;&#x9;WeekOfMonth INT,-- Week Number of Month &#xA;&#x9;WeekOfQuarter INT, -- Week Number of the Quarter&#xA;&#x9;WeekOfYear INT,-- Week Number of the Year&#xA;&#x9;Month INT, -- Number of the Month 1 to 12{}&#xA;&#x9;MonthName VARCHAR(9),-- January, February etc&#xA;&#x9;MonthOfQuarter INT,-- Month Number belongs to Quarter&#xA;&#x9;Quarter CHAR(2),&#xA;&#x9;QuarterName VARCHAR(9),-- First,Second..&#xA;&#x9;Year INT,-- Year value of Date stored in Row&#xA;&#x9;YearName CHAR(7), -- CY 2015,CY 2016&#xA;&#x9;MonthYear CHAR(10), -- Jan-2016,Feb-2016&#xA;&#x9;MMYYYY INT,&#xA;&#x9;FirstDayOfMonth DATE,&#xA;&#x9;LastDayOfMonth DATE,&#xA;&#x9;FirstDayOfQuarter DATE,&#xA;&#x9;LastDayOfQuarter DATE,&#xA;&#x9;FirstDayOfYear DATE,&#xA;&#x9;LastDayOfYear DATE,&#xA;&#x9;IsHoliday BIT,-- Flag 1=National Holiday, 0-No National Holiday&#xA;&#x9;IsWeekday BIT,-- 0=Week End ,1=Week Day&#xA;&#x9;Holiday VARCHAR(50),--Name of Holiday in US&#xA;&#x9;Season VARCHAR(10)--Name of Season&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 6 FactCompanyProduction&#xA;--&#xA;CREATE TABLE FactCompanyProduction&#xA;&#x9;(Date_SK INT CONSTRAINT fk_Date_SK FOREIGN KEY REFERENCES DimDate(Date_SK),&#xA;&#x9;Customer_SK INT CONSTRAINT fk_Customer_SK FOREIGN KEY REFERENCES DimCustomer(Customer_SK), &#xA;&#x9;Shipment_SK INT CONSTRAINT fk_Shipment_SK FOREIGN KEY REFERENCES DimShipment(Shipment_SK),&#xA;&#x9;Compliance_SK INT CONSTRAINT fk_Compliance_SK FOREIGN KEY REFERENCES DimCompliance(Compliance_SK),&#xA;&#x9;Production_SK INT CONSTRAINT fk_Production_SK FOREIGN KEY REFERENCES DimProductionBatch(Production_SK),&#xA;&#x9;Quantity_Produced INT,&#xA;&#x9;Quality_Rating NUMERIC(18,0),&#xA;&#x9;Production_Cost NUMERIC(38,4),&#xA;&#x9;Production_Duration INT,&#xA;&#x9;CONSTRAINT [pk_CompanyProduction] PRIMARY KEY&#xA;   &#x9;(Date_SK,&#xA;    Customer_SK,&#xA;&#x9;Shipment_SK,&#xA;&#x9;Compliance_SK,&#xA;&#x9;Production_SK)&#xA;&#x9;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="-- Updated on October 15, 2017&#xA;-- Broadcloth database developed and written by Amy Phillips&#xA;-- BroadclothDW developed and written by Zach B, Cam H, Paul S, &amp; Julia T&#xA;-----------------------------------------------------------&#xA;&#xA;IF NOT EXISTS(SELECT * FROM sys.databases&#xA;&#x9;WHERE name = N'BroadclothDW')&#xA;&#x9;CREATE DATABASE BroadclothDW&#xA;GO&#xA;USE BroadclothDW&#xA;&#xA;-- =======================================&#xA;-- Delete existing tables&#xA;-- =======================================&#xA;&#xA;--&#xA;-- Table FactCompanyProduction&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'FactCompanyProduction'&#xA;       )&#xA;&#x9;DROP TABLE FactCompanyProduction;&#xA;--&#xA;-- Table DimShipment&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimShipment'&#xA;       )&#xA;&#x9;DROP TABLE DimShipment;&#xA;--&#xA;-- Table DimCompliance&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimCompliance'&#xA;       )&#xA;&#x9;DROP TABLE DimCompliance;&#xA;--&#xA;-- Table DimCustomer&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimCustomer'&#xA;       )&#xA;&#x9;DROP TABLE DimCustomer;&#xA;--&#xA;-- Table DimDate&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimDate'&#xA;       )&#xA;&#x9;DROP TABLE DimDate;&#xA;--&#xA;-- Table DimProductionBatch&#xA;--&#xA;IF EXISTS(&#xA;&#x9;SELECT *&#xA;&#x9;FROM sys.tables&#xA;&#x9;WHERE name = N'DimProductionBatch'&#xA;       )&#xA;&#x9;DROP TABLE DimProductionBatch;&#xA;&#xA;&#xA;-- ==========================&#xA;-- Create tables&#xA;-- ===========================&#xA;&#xA;--&#xA;-- Table 1 DimProductionBatch&#xA;--&#xA;CREATE TABLE DimProductionBatch&#xA;&#x9;(Production_SK INT IDENTITY (1,1) CONSTRAINT pk_Production_SK PRIMARY KEY,&#xA;&#x9;ItemID INT NOT NULL,&#xA;&#x9;FactoryID INT NOT NULL,&#xA;&#x9;Start_date_time DATETIME NOT NULL,&#xA;&#x9;Est_end_time DATETIME NOT NULL,&#xA;&#x9;Actual_end_time DATETIME NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 2 DimShipment&#xA;--&#xA;CREATE TABLE DimShipment&#xA;&#x9;(Shipment_SK INT IDENTITY (1,1) CONSTRAINT pk_Shipment_SK PRIMARY KEY,&#xA;&#x9;Shipment_AK INT NOT NULL,&#xA;&#x9;Ship_method NVARCHAR(50) NOT NULL,&#xA;&#x9;Ship_postal NVARCHAR(12) NOT NULL,&#xA;&#x9;Ship_state NVARCHAR(20) NOT NULL,&#xA;&#x9;Ship_nation NVARCHAR(50) NOT NULL,&#xA;&#x9;Ship_currency NVARCHAR(5) NOT NULL,&#xA;&#x9;Quantity_shipped INT NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 3 DimCompliance&#xA;--&#xA;CREATE TABLE DimCompliance&#xA;&#x9;(Compliance_SK INT IDENTITY (1,1) CONSTRAINT pk_Compliance_SK PRIMARY KEY,&#xA;&#x9;Compliance_AK INT NOT NULL,&#xA;&#x9;Date_observed DATETIME NOT NULL,&#xA;&#x9;Overall_rating NUMERIC(18,0) NOT NULL,&#xA;&#x9;Condition_category NVARCHAR(50) NOT NULL,&#xA;&#x9;Worker_comments NVARCHAR(1023) NOT NULL,&#xA;&#x9;Worker_health NVARCHAR (1023) NOT NULL,&#xA;&#x9;Worker_age NUMERIC(18,0) NOT NULL,&#xA;&#x9;Worker_gender NVARCHAR(7) NOT NULL,&#xA;&#x9;Condition_comments NVARCHAR(1023) NOT NULL,&#xA;&#x9;Age_documents NVARCHAR(150) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 4 DimCustomer&#xA;--&#xA;CREATE TABLE DimCustomer&#xA;&#x9;(Customer_SK INT IDENTITY (1,1) CONSTRAINT pk_Customer_SK PRIMARY KEY,&#xA;&#x9;Customer_AK INT NOT NULL,&#xA;&#x9;Order_date DATETIME NOT NULL,&#xA;&#x9;Bill_postal_code NVARCHAR(12) NOT NULL,&#xA;&#x9;Bill_state NVARCHAR(20) NOT NULL,&#xA;&#x9;Bill_nation NVARCHAR(50) NOT NULL,&#xA;&#x9;Order_currency NVARCHAR(20) NOT NULL,&#xA;&#x9;Base_currency NVARCHAR(20) NOT NULL,&#xA;&#x9;Price_adjustment NUMERIC(38,4) NOT NULL&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 5 DimDate&#xA;--&#xA;CREATE TABLE dbo.DimDate&#xA;&#x9;(Date_SK INT PRIMARY KEY, &#xA;&#x9;Date DATETIME,&#xA;&#x9;FullDate CHAR(10),-- Date in MM-dd-yyyy format&#xA;&#x9;DayOfMonth INT, -- Field will hold day number of Month&#xA;&#x9;DayName VARCHAR(9), -- Contains name of the day, Sunday, Monday &#xA;&#x9;DayOfWeek INT,-- First Day Sunday=1 and Saturday=7&#xA;&#x9;DayOfWeekInMonth INT, -- 1st Monday or 2nd Monday in Month&#xA;&#x9;DayOfWeekInYear INT,&#xA;&#x9;DayOfQuarter INT,&#xA;&#x9;DayOfYear INT,&#xA;&#x9;WeekOfMonth INT,-- Week Number of Month &#xA;&#x9;WeekOfQuarter INT, -- Week Number of the Quarter&#xA;&#x9;WeekOfYear INT,-- Week Number of the Year&#xA;&#x9;Month INT, -- Number of the Month 1 to 12{}&#xA;&#x9;MonthName VARCHAR(9),-- January, February etc&#xA;&#x9;MonthOfQuarter INT,-- Month Number belongs to Quarter&#xA;&#x9;Quarter CHAR(2),&#xA;&#x9;QuarterName VARCHAR(9),-- First,Second..&#xA;&#x9;Year INT,-- Year value of Date stored in Row&#xA;&#x9;YearName CHAR(7), -- CY 2015,CY 2016&#xA;&#x9;MonthYear CHAR(10), -- Jan-2016,Feb-2016&#xA;&#x9;MMYYYY INT,&#xA;&#x9;FirstDayOfMonth DATE,&#xA;&#x9;LastDayOfMonth DATE,&#xA;&#x9;FirstDayOfQuarter DATE,&#xA;&#x9;LastDayOfQuarter DATE,&#xA;&#x9;FirstDayOfYear DATE,&#xA;&#x9;LastDayOfYear DATE,&#xA;&#x9;IsHoliday BIT,-- Flag 1=National Holiday, 0-No National Holiday&#xA;&#x9;IsWeekday BIT,-- 0=Week End ,1=Week Day&#xA;&#x9;Holiday VARCHAR(50),--Name of Holiday in US&#xA;&#x9;Season VARCHAR(10)--Name of Season&#xA;&#x9;);&#xA;&#xA;--&#xA;-- Table 6 FactCompanyProduction&#xA;--&#xA;CREATE TABLE FactCompanyProduction&#xA;&#x9;(Date_SK INT CONSTRAINT fk_Date_SK FOREIGN KEY REFERENCES DimDate(Date_SK),&#xA;&#x9;Customer_SK INT CONSTRAINT fk_Customer_SK FOREIGN KEY REFERENCES DimCustomer(Customer_SK), &#xA;&#x9;Shipment_SK INT CONSTRAINT fk_Shipment_SK FOREIGN KEY REFERENCES DimShipment(Shipment_SK),&#xA;&#x9;Compliance_SK INT CONSTRAINT fk_Compliance_SK FOREIGN KEY REFERENCES DimCompliance(Compliance_SK),&#xA;&#x9;Production_SK INT CONSTRAINT fk_Production_SK FOREIGN KEY REFERENCES DimProductionBatch(Production_SK),&#xA;&#x9;Quantity_Produced INT,&#xA;&#x9;Quality_Rating NUMERIC(18,0),&#xA;&#x9;Production_Cost NUMERIC(38,4),&#xA;&#x9;--Production_Duration INT,&#xA;&#x9;CONSTRAINT [pk_CompanyProduction] PRIMARY KEY&#xA;   &#x9;(Date_SK,&#xA;    Customer_SK,&#xA;&#x9;Shipment_SK,&#xA;&#x9;Compliance_SK,&#xA;&#x9;Production_SK)&#xA;&#x9;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
@@ -2078,6 +2587,14 @@ FROM     Shipment INNER JOIN
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
       DTS:To="Package\Load Dimension Tables" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B12E57F7-C519-4AA8-9349-A7F0B6E77793}"
+      DTS:From="Package\Load Dimension Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Fact Table" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -2090,30 +2607,30 @@ FROM     Shipment INNER JOIN
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="177,41.5"
+          Size="177,42"
           Id="Package\Load Dimension Tables\Load DimCompliance"
           TopLeft="37.6489814046521,173.189920647264" />
         <NodeLayout
-          Size="168,41.5"
+          Size="168,42"
           Id="Package\Load Dimension Tables\Load DimCustomer"
           TopLeft="39.4448998025833,243.993284265439" />
         <NodeLayout
-          Size="145.5,42"
+          Size="146,42"
           Id="Package\Load Dimension Tables\Load DimDate"
-          TopLeft="39.9166666666666,311.583333333333" />
+          TopLeft="48.0416666666666,312.208333333333" />
         <NodeLayout
           Size="200,42"
           Id="Package\Load Dimension Tables\Load DimProductionBatch"
           TopLeft="27.6897975615788,31.4756343703901" />
         <NodeLayout
-          Size="167,41.5"
+          Size="168,42"
           Id="Package\Load Dimension Tables\Load DimShipment"
           TopLeft="37.7306140591035,102.352946288787" />
         <EdgeLayout
           Id="Package\Load Dimension Tables.PrecedenceConstraints[Constraint]"
-          TopLeft="124.460205810341,73.4756343703901">
+          TopLeft="124.710205810341,73.4756343703901">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -2130,29 +2647,33 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,5.91180049044845,35.986484375,9.5537109375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Load Dimension Tables.PrecedenceConstraints[Constraint 1]"
-          TopLeft="123.689797731878,143.952946288787">
+          TopLeft="123.939797731878,144.352946288787">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,29.2369743584767"
+              EndConnector="0,28.836974358477"
               Start="0,0"
-              End="0,21.7369743584767">
+              End="0,21.336974358477">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.7369743584767" />
+                    End="0,21.336974358477" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,5.8916317104885,35.986484375,9.5537109375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2174,57 +2695,53 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,6.0748263403379,35.986484375,9.5537109375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Load Dimension Tables.PrecedenceConstraints[Constraint 3]"
-          TopLeft="123.444899802583,285.493284265439">
+          TopLeft="122.118283234625,285.493284265439">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-10.7782331359167,26.0900490678944"
+              EndConnector="0,26.715049067894"
               Start="0,0"
-              End="-10.7782331359167,18.5900490678944">
+              End="0,19.215049067894">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,9.04502453394718" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,9.04502453394718"
-                    Point2="0,13.0450245339472"
-                    Point3="-4,13.0450245339472" />
-                  <mssgle:LineSegment
-                    End="-6.77823313591668,13.0450245339472" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-6.77823313591668,13.0450245339472"
-                    Point2="-10.7782331359167,13.0450245339472"
-                    Point3="-10.7782331359167,17.0450245339472" />
-                  <mssgle:LineSegment
-                    End="-10.7782331359167,18.5900490678944" />
+                    End="0,19.215049067894" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,4.830669065197,35.986484375,9.5537109375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="285,428"
-          Size="285,471"
+          PanelSize="285,409"
+          Size="285,452"
           Id="Package\Load Dimension Tables"
-          TopLeft="80.5714299435519,244.988239223652" />
+          TopLeft="53.4880966102186,248.321572556985" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Load Fact Table\Load FactCompanyProduction"
+          TopLeft="20,26" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="205,55.5"
-          Size="205,98.5"
+          PanelSize="269,134"
+          Size="269,177"
           Id="Package\Load Fact Table"
-          TopLeft="407.265313058136,24.4705885784849" />
+          TopLeft="505.265313058136,387.970588578485" />
         <NodeLayout
           Size="121,42"
           Id="Package\Prepare ETL\Build DM"
@@ -2232,42 +2749,56 @@ FROM     Shipment INNER JOIN
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="245.5,122.5"
-          Size="245.5,165.5"
+          PanelSize="246,122"
+          Size="246,166"
           Id="Package\Prepare ETL"
-          TopLeft="82.6938789592887,21.4117650061743" />
+          TopLeft="70.6938789592887,23.4117650061743" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="205.443878959289,186.911765006174">
+          TopLeft="194.715987784754,188.911765006174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="17.6275509842632,58.0764742174777"
+              EndConnector="0,59.409807550811"
               Start="0,0"
-              End="17.6275509842632,50.5764742174777">
+              End="0,51.909807550811">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,25.0382371087388" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,25.0382371087388"
-                    Point2="0,29.0382371087388"
-                    Point3="4,29.0382371087388" />
-                  <mssgle:LineSegment
-                    End="13.6275509842632,29.0382371087388" />
-                  <mssgle:CubicBezierSegment
-                    Point1="13.6275509842632,29.0382371087388"
-                    Point2="17.6275509842632,29.0382371087388"
-                    Point3="17.6275509842632,33.0382371087388" />
-                  <mssgle:LineSegment
-                    End="17.6275509842632,50.5764742174777" />
+                    End="0,51.909807550811" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-17.9932421875,21.1780483066555,35.986484375,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="338.488096610219,475.396080567735">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="166.777216447917,0"
+              Start="0,0"
+              End="159.277216447917,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="159.277216447917,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="61.6453660364587,5,35.986484375,9.5537109375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2277,13 +2808,13 @@ FROM     Shipment INNER JOIN
     design-time-name="Package\Load Dimension Tables\Load DimCompliance">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="149.5,41.5"
+          Size="150,42"
           Id="Package\Load Dimension Tables\Load DimCompliance\OLE DB Source"
           TopLeft="169.142860023343,70.352942163144" />
         <NodeLayout
-          Size="170.5,41.5"
+          Size="170,42"
           Id="Package\Load Dimension Tables\Load DimCompliance\OLE DB Destination"
           TopLeft="162.285717049424,157.835296331227" />
         <EdgeLayout
@@ -2305,9 +2836,7 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2338,13 +2867,13 @@ FROM     Shipment INNER JOIN
     design-time-name="Package\Load Dimension Tables\Load DimCustomer">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="170.5,41.5"
+          Size="170,42"
           Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Destination"
           TopLeft="188.000003201621,119.905884034576" />
         <NodeLayout
-          Size="149.5,41.5"
+          Size="150,42"
           Id="Package\Load Dimension Tables\Load DimCustomer\OLE DB Source"
           TopLeft="185.371426537572,42.3999985414393" />
         <EdgeLayout
@@ -2378,9 +2907,7 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2411,15 +2938,15 @@ FROM     Shipment INNER JOIN
     design-time-name="Package\Load Dimension Tables\Load DimProductionBatch">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="149.5,41.5"
-          Id="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source"
-          TopLeft="324,111.2" />
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="154,42"
           Id="Package\Load Dimension Tables\Load DimProductionBatch\Derived Column"
           TopLeft="317,178.75" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Source"
+          TopLeft="324,111.2" />
         <NodeLayout
           Size="171,42"
           Id="Package\Load Dimension Tables\Load DimProductionBatch\OLE DB Destination"
@@ -2443,9 +2970,7 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-8,1.275,16,16"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -2498,13 +3023,13 @@ FROM     Shipment INNER JOIN
     design-time-name="Package\Load Dimension Tables\Load DimShipment">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="149.6,41.6"
+          Size="150,42"
           Id="Package\Load Dimension Tables\Load DimShipment\OLE DB Source"
           TopLeft="251.2,96" />
         <NodeLayout
-          Size="170.4,41.6"
+          Size="170,42"
           Id="Package\Load Dimension Tables\Load DimShipment\OLE DB Destination"
           TopLeft="243.2,179.2" />
         <EdgeLayout
@@ -2526,9 +3051,7 @@ FROM     Shipment INNER JOIN
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2552,6 +3075,65 @@ FROM     Shipment INNER JOIN
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Fact Table\Load FactCompanyProduction">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source"
+          TopLeft="315,58" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination"
+          TopLeft="312,139" />
+        <EdgeLayout
+          Id="Package\Load Fact Table\Load FactCompanyProduction.Paths[OLE DB Source Output]"
+          TopLeft="393.75,100">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Fact Table\Load FactCompanyProduction\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -181,7 +181,7 @@ CREATE TABLE FactCompanyProduction
 	Quantity_Produced INT,
 	Quality_Rating NUMERIC(18,0),
 	Production_Cost NUMERIC(38,4),
-	Production_Duration INT,
+	--Production_Duration INT,
 	CONSTRAINT [pk_CompanyProduction] PRIMARY KEY
    	(Date_SK,
     Customer_SK,

@@ -2,13 +2,13 @@
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
     <Name>BroadclothETL</Name>
-    <LastWriteTime>2017-10-19T02:55:30.476878Z</LastWriteTime>
+    <LastWriteTime>2017-10-17T02:37:45.2570946Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>ETLforBroadcloth.dtsx</Name>
-      <LastWriteTime>2017-10-19T05:50:42.3082163Z</LastWriteTime>
+      <LastWriteTime>2017-10-19T15:40:45.1522969Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>
