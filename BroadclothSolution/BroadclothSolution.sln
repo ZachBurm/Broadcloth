@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build DW", "Build DW", "{6B
 EndProject
 Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "BroadclothETL", "BroadclothETL\BroadclothETL.dtproj", "{01B7AD92-EF37-4106-964F-CDF7180434BD}"
 EndProject
+Project("{D2ABAB84-BF74-430A-B69E-9DC6D40DDA17}") = "DMAnalysis", "DMAnalysis\DMAnalysis.dwproj", "{4EEB16B4-4A93-46BC-A900-C07F302DD2AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
@@ -24,6 +26,9 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{01B7AD92-EF37-4106-964F-CDF7180434BD}.Development|Default.ActiveCfg = Development
 		{01B7AD92-EF37-4106-964F-CDF7180434BD}.Development|Default.Build.0 = Development
+		{4EEB16B4-4A93-46BC-A900-C07F302DD2AD}.Development|Default.ActiveCfg = Development
+		{4EEB16B4-4A93-46BC-A900-C07F302DD2AD}.Development|Default.Build.0 = Development
+		{4EEB16B4-4A93-46BC-A900-C07F302DD2AD}.Development|Default.Deploy.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
