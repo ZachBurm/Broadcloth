@@ -7,9 +7,9 @@
         <Partition dwd:design-time-name="c58728b3-51e3-4d9e-a793-6af87ef38ee7">
           <ID>Fact Company Production</ID>
           <Name>Fact Company Production</Name>
-          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
-          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
-          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <CreatedTimestamp>0001-01-01T07:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T07:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T07:00:00Z</LastProcessed>
           <State>Unprocessed</State>
           <Source xsi:type="DsvTableBinding" dwd:design-time-name="ab3a589d-4399-4baa-b515-38c27c1e3580">
             <DataSourceViewID>Broadcloth DW</DataSourceViewID>
