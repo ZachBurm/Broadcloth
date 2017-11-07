@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="10/16/2017 12:18:37 PM"
@@ -7,12 +7,12 @@
   DTS:CreatorName="CAM\Cameron"
   DTS:DTSID="{F5A3B2E2-C9F3-4AED-9846-C7EBEBCE8126}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="14.0.0800.90"
+  DTS:LastModifiedProductVersion="14.0.0500.272"
   DTS:LocaleID="1033"
   DTS:ObjectName="ETLforBroadcloth"
   DTS:PackageType="5"
   DTS:VersionBuild="47"
-  DTS:VersionGUID="{B001686C-AA0F-4A06-A461-425F92CE32EB}">
+  DTS:VersionGUID="{69B0A550-517C-41F6-9227-9CD1C224E4E8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2601,7 +2601,7 @@ INNER JOIN DimProductionBatch
 <!--If you manually edit this section and make a mistake, you can delete it. -->
 <!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
-  Version="8">
+  Version="sql12">
   <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
